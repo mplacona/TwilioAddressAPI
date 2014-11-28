@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Numbers";
+}
+
+@if (Request["number"] != null)
+{
+    <div class="alert alert-success" role="alert">Yey! The number @Request["number"] is yours now!</div>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form action="/Numbers" class="form-horizontal" method="post">
+    <div class="control-group">
+        <label class="control-label" for="IsoCountry">
+            Available Countries
+        </label>
+        <select name="IsoCountry">
+            @foreach (var country in ViewBag.countries)
+            {
+                <option value="@country">@country</option>
+            }
+        </select>
+        <div class="controls">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </div>
+
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <th>Number</th>
+    <th>Location</th>
+    <th>Type</th>
+    <th></th>
+    </thead>
+    @foreach (var number in ViewBag.numbers)
+    {
+        <tr>
+            <td>@number.PhoneNumber</td>
+            <td>@number.Region</td>
+            <td>@number.AddressRequirements</td>
+            <td>@Html.ActionLink("Buy", "Buy", "Numbers", new { PhoneNumber = @number.PhoneNumber }, null)</td>
+        </tr>
+    }
+</table>

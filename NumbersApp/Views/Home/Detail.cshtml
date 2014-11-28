@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Detail";
+    var address = ViewBag.Address;
+}
+
+<h2>@ViewBag.Title</h2>
+<form action="/Home/Update" class="form-horizontal" method="post">
+    <input type="hidden" name="Sid" id="Sid" value="@address.Sid">
+    <div class="control-group">
+        <label class="control-label" for="friendlyName">
+            Friendly Name
+        </label>
+        <div class="controls">
+            <input type="text" id="friendlyName" name="FriendlyName" placeholder="name for the address" class="span4" value="@address.FriendlyName " />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="customerName">
+            Customer Name
+        </label><div class="controls"><input type="text" id="CustomerName" name="customerName" placeholder="name for business or customer" class="span4" value="@address.CustomerName" required="true" /></div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="street">
+            Address
+        </label><div class="controls"><input type="text" id="Street" name="street" placeholder="street address, PO box, suite, unit, etc..." class="span4" value="@address.Street" required="true" /></div>
+    </div><div class="control-group">
+        <label class="control-label" for="city">
+            City
+        </label><div class="controls"><input type="text" id="City" name="City" class="span4" value="@address.City" required="true" /></div>
+    </div><div class="control-group">
+        <label class="control-label" for="region">
+            State/Province/Region
+        </label><div class="controls"><input type="text" id="Region" name="Region" class="span3" value="@address.Region" required="true" /></div>
+    </div><div class="control-group">
+        <label class="control-label" for="postalCode">
+            Postal Code
+        </label><div class="controls"><input type="text" id="PostalCode" name="PostalCode" class="span2" value="@address.PostalCode" required="true" /></div>
+    </div><div class="control-group" />
+    <label class="control-label" for="country">Country</label>
+    <div class="controls">
+        <span name="country">@address.IsoCountry</span>
+    </div>
+    <div class="controls"><button class="btn btn-primary" type="submit">Save</button>&nbsp;<a class="btn" href="/">Cancel</a></div>
+</form>
+
