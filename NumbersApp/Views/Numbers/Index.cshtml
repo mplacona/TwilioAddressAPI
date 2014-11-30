@@ -29,18 +29,22 @@
 
 <table class="table table-striped">
     <thead>
-    <th>Number</th>
-    <th>Location</th>
-    <th>Type</th>
-    <th></th>
+        <th>Number</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th></th>
     </thead>
-    @foreach (var number in ViewBag.numbers)
+    @if (ViewBag.numbers != null)
     {
-        <tr>
-            <td>@number.PhoneNumber</td>
-            <td>@number.Region</td>
-            <td>@number.AddressRequirements</td>
-            <td>@Html.ActionLink("Buy", "Buy", "Numbers", new { PhoneNumber = @number.PhoneNumber }, null)</td>
-        </tr>
+        foreach (var number in ViewBag.numbers)
+        {
+            <tr>
+                <td>@number.PhoneNumber</td>
+                <td>@number.Region</td>
+                <td>@number.AddressRequirements</td>
+                <td>@Html.ActionLink("Buy", "Buy", "Numbers", new { PhoneNumber = @number.PhoneNumber }, null)</td>
+            </tr>
+        }
     }
+   
 </table>
