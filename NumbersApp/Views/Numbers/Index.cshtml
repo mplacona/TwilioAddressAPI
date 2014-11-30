@@ -12,7 +12,7 @@
 <form action="/Numbers" class="form-horizontal" method="post">
     <div class="control-group">
         <label class="control-label" for="IsoCountry">
-            Available Countries
+            Available Countries 
         </label>
         <select name="IsoCountry">
             @foreach (var country in ViewBag.countries)
@@ -20,9 +20,7 @@
                 <option value="@country">@country</option>
             }
         </select>
-        <div class="controls">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
+        <button class="btn btn-primary" type="submit">Search</button>
     </div>
 
 </form>

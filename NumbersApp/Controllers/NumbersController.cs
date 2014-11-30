@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Twilio;
 
@@ -19,14 +17,26 @@ namespace NumbersApp.Controllers
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
             var twilio = new TwilioRestClient(accountSid, authToken);
 
-            var addresses = twilio.ListAddresses().Addresses;
+            var addresses = twilio.ListAddresses();
+
+            if (addresses.RestException != null)
+            {
+                return new HttpStatusCodeResult(500, addresses.RestException.Message);
+            }
+
             // Return ISO codes only once
-            var availableCountries = addresses.Select(m => m.IsoCountry).Distinct();
+            var availableCountries = addresses.Addresses.Select(m => m.IsoCountry).Distinct();
 
             if (IsoCountry != null)
             {
                 var options = new AvailablePhoneNumberListRequest { VoiceEnabled = true };
                 var numbers = twilio.ListAvailableLocalPhoneNumbers(IsoCountry, options);
+
+                if (numbers.RestException != null)
+                {
+                    return new HttpStatusCodeResult(500, numbers.RestException.Message);
+                }
+
                 ViewBag.numbers = numbers.AvailablePhoneNumbers;
             }
 
@@ -43,7 +53,12 @@ namespace NumbersApp.Controllers
 
             var purchaseOptions = new PhoneNumberOptions { PhoneNumber = PhoneNumber };
 
-            twilio.AddIncomingPhoneNumber(purchaseOptions);
+            var purchase = twilio.AddIncomingPhoneNumber(purchaseOptions);
+
+            if (purchase.RestException != null)
+            {
+                return new HttpStatusCodeResult(500, purchase.RestException.Message);
+            }
 
             return RedirectToAction("Index", "Numbers", new { number = PhoneNumber });
         }

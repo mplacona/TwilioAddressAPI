@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Twilio;
 
@@ -41,6 +38,11 @@ namespace NumbersApp.Controllers
             var twilio = new TwilioRestClient(accountSid, authToken);
 
             var address = twilio.GetAddress(Sid);
+
+            if (address.RestException != null)
+            {
+                return new HttpStatusCodeResult(500, address.RestException.Message);
+            }
             
             ViewBag.address = address;
 
@@ -56,6 +58,11 @@ namespace NumbersApp.Controllers
             var options = new AddressOptions { FriendlyName = FriendlyName, CustomerName = CustomerName,Street = Street, City = City, Region = Region, PostalCode = PostalCode};
             var address = twilio.UpdateAddress(Sid, options);
 
+            if (address.RestException != null)
+            {
+                return new HttpStatusCodeResult(500, address.RestException.Message);
+            }
+
             ViewBag.address = address;
             return View(viewName: "~/Views/Home/Detail.cshtml");
         }
@@ -68,9 +75,13 @@ namespace NumbersApp.Controllers
             var twilio = new TwilioRestClient(accountSid, authToken);
 
             var address = twilio.AddAddress(FriendlyName, CustomerName, Street, City, Region, PostalCode, IsoCountry);
-            
-            ViewBag.address = address;
-            return View(viewName: "~/Views/Home/Detail.cshtml");
+
+            if (address.RestException != null)
+            {
+                return new HttpStatusCodeResult(500, address.RestException.Message);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
