@@ -18,15 +18,18 @@ namespace NumbersApp.Controllers
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
             var twilio = new TwilioRestClient(accountSid, authToken);
-
             var addresses = twilio.ListAddresses();
 
+            if (addresses.RestException != null)
+            {
+                return new HttpStatusCodeResult(500, addresses.RestException.Message);
+            }
             ViewBag.Addresses = addresses.Addresses;
-
+            
             return View();
         }
 
-        public ActionResult New()
+        public ActionResult AddAddress()
         {
             return View();
         }
