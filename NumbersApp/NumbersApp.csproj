@@ -254,7 +254,7 @@
     <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\Shared\_alerts.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
-    <Content Include="Views\Home\New.cshtml" />
+    <Content Include="Views\Home\AddAddress.cshtml" />
     <Content Include="Views\Numbers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
