@@ -13,7 +13,7 @@ namespace NumbersApp.Controllers
         //
         // GET: /Numbers/
 
-        public ActionResult Index(String IsoCountry = "GB")
+        public ActionResult Index(String IsoCountry)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
@@ -23,11 +23,14 @@ namespace NumbersApp.Controllers
             // Return ISO codes only once
             var availableCountries = addresses.Select(m => m.IsoCountry).Distinct();
 
-            var options = new AvailablePhoneNumberListRequest { VoiceEnabled = true };
-            var numbers = twilio.ListAvailableLocalPhoneNumbers(IsoCountry, options);
+            if (IsoCountry != null)
+            {
+                var options = new AvailablePhoneNumberListRequest { VoiceEnabled = true };
+                var numbers = twilio.ListAvailableLocalPhoneNumbers(IsoCountry, options);
+                ViewBag.numbers = numbers.AvailablePhoneNumbers;
+            }
 
             ViewBag.countries = availableCountries;
-            ViewBag.numbers = numbers.AvailablePhoneNumbers;
 
             return View();
         }
