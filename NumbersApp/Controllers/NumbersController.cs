@@ -45,7 +45,7 @@ namespace NumbersApp.Controllers
             return View();
         }
 
-        public ActionResult Buy(String PhoneNumber)
+        public ActionResult Buy(string PhoneNumber)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];

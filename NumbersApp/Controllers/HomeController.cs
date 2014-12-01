@@ -31,7 +31,7 @@ namespace NumbersApp.Controllers
             return View();
         }
 
-        public ActionResult Detail(String Sid)
+        public ActionResult Details(string Sid)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
@@ -49,7 +49,7 @@ namespace NumbersApp.Controllers
             return View();
         }
 
-        public ActionResult Update(String Sid, String FriendlyName, String CustomerName, String Street, String City, String Region, String PostalCode)
+        public ActionResult Update(string Sid, string FriendlyName, string CustomerName, string Street, string City, string Region, string PostalCode)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
@@ -64,11 +64,11 @@ namespace NumbersApp.Controllers
             }
 
             ViewBag.address = address;
-            return View(viewName: "~/Views/Home/Detail.cshtml");
+            return View(viewName: "~/Views/Home/Details.cshtml");
         }
 
 
-        public ActionResult Create(String FriendlyName, String CustomerName, String Street, String City, String Region, String PostalCode, String IsoCountry)
+        public ActionResult Create(string FriendlyName, string CustomerName, string Street, string City, string Region, string PostalCode, string IsoCountry)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];

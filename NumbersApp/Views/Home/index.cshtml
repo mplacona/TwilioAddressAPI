@@ -7,21 +7,26 @@
 <a class="btn pull-right" href="/Home/AddAddress">Add new address</a>
 <table class="table table-striped">
     <thead>
-        <th>Customer Name</th>
-        <th>Country ISO</th>
-        <th>Address</th>
-    </thead>
-    @foreach (var item in ViewBag.Addresses)
-    {
         <tr>
-            <td>@Html.ActionLink((String)@item.CustomerName, "Detail", "Home", new { Sid = item.Sid }, null)
-            </td>
-            <td>@item.IsoCountry</td>
-            <td>
-                @item.FriendlyName <br />
-                @item.Street<br/>
-                @item.City, @item.Region @item.PostalCode
-            </td>
+            <th>Customer Name</th>
+            <th>Country ISO</th>
+            <th>Address</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Addresses)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink((String)@item.CustomerName, "Details", "Home", new { Sid = item.Sid }, null)
+                </td>
+                <td>@item.IsoCountry</td>
+                <td>
+                    @item.FriendlyName <br />
+                    @item.Street<br />
+                    @item.City, @item.Region @item.PostalCode
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
